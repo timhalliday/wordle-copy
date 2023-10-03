@@ -5,9 +5,9 @@ export default function Header() {
   return(
     <header className="header">
       <div className="container header__container">
-        <div></div>
-        <h1>Reactle</h1>
-        <div>Created by Tim Halliday</div>
+        <div className="header__content">
+          <h1>Reactle</h1>
+        </div>
       </div>
     </header>
   )

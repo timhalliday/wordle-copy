@@ -3,12 +3,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Header from './components/header/Header'
+import Wordle from "./components/wordle/Wordle"
 
 function App() {
   const [solution, setSolution] = useState(null);
 
   useEffect(() => {
-    console.log("run use effect")
     fetch("http://localhost:3001/solutions")
     .then(response => response.json())
     .then(data => {
@@ -19,8 +19,8 @@ function App() {
 
   return (
     <>
-      {solution}
       <Header/>
+      {solution && <Wordle solution={solution}/>}
     </>
   )
 }
