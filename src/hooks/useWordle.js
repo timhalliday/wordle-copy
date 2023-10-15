@@ -1,5 +1,8 @@
 import {useState} from 'react'
 
+const A_KEY_CODE = 65;
+const Z_KEY_CODE = 90;
+
 const useWordle = (solution) => {
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState("")
@@ -37,17 +40,20 @@ const useWordle = (solution) => {
     setHistory(prevHistory => [...prevHistory, currentGuess])
 
     if(currentGuess === solution) {
-      setIsCorrect(false)
+      setIsCorrect(true)
     }
   }
 
   // handle keyup and track current guess
   // add the guess when user presses enter
   const handleKeyUp = ({key, keyCode}) => {
-    if(keyCode >= 65 && keyCode <= 90 && currentGuess.length < 5) {
+    if(keyCode >= A_KEY_CODE && keyCode <= Z_KEY_CODE && currentGuess.length < 5) {
       setCurrentGuess(prevValue => prevValue + key)
-    } else if (keyCode === 8) {
+    } else if (keyCode === 8 && currentGuess.length === 0) {
       setCurrentGuess(prevValue => prevValue.slice(0, -1))
+    } else if (keyCode === 13 && currentGuess.length === 5) {
+      addNewGuess()
+      setCurrentGuess("")
     }
   }
 
