@@ -10,14 +10,11 @@ export default function Wordle({solution}) {
 
     return () => window.removeEventListener("keyup", handleKeyUp)
   }, [handleKeyUp])
-  
-  const historyWords = history.map(item => <li>{item}</li>)
 
   return (
     <section className="wordle">
       <div className="container wordle__container">
         <span>Current Guess: {currentGuess}</span>
-        {historyWords}
       </div>
     </section>
   )

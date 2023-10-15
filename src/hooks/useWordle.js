@@ -49,7 +49,7 @@ const useWordle = (solution) => {
   const handleKeyUp = ({key, keyCode}) => {
     if(keyCode >= A_KEY_CODE && keyCode <= Z_KEY_CODE && currentGuess.length < 5) {
       setCurrentGuess(prevValue => prevValue + key)
-    } else if (keyCode === 8 && currentGuess.length === 0) {
+    } else if (keyCode === 8 && currentGuess.length != 0) {
       setCurrentGuess(prevValue => prevValue.slice(0, -1))
     } else if (keyCode === 13 && currentGuess.length === 5) {
       addNewGuess()
