@@ -14,7 +14,8 @@ export default function Wordle({solution}) {
   return (
     <section className="wordle">
       <div className="container wordle__container">
-        <span>Current Guess: {currentGuess}</span>
+        <div>Solution = {solution}</div>
+        <div>Current Guess: {currentGuess}</div>
       </div>
     </section>
   )

@@ -2,6 +2,8 @@ import {useState} from 'react'
 
 const A_KEY_CODE = 65;
 const Z_KEY_CODE = 90;
+const BACKSPACE_KEY_CODE = 8;
+const ENTER_KEY_CODE = 13
 
 const useWordle = (solution) => {
   const [turn, setTurn] = useState(0)
@@ -11,25 +13,23 @@ const useWordle = (solution) => {
   const [isCorrect, setIsCorrect] = useState(false);
 
   // format a guess into array of letter objects
-  const formatGuess = (guess) => {
-    var output = []
+  const formatGuess = () => {
+    console.log("Format guess - ", currentGuess)
+    let solutionArray = [...solution]
+    let formattedGuess = [...currentGuess].map((letter, index) => {
+      let colour = "grey"
 
-    for(i=0; i<guess.length; i++) {
-      let colour = '';
-      if (guess[i] === solution[i]) {
-        colour = 'green'
-      } else if (solution.includes(guess[i])){
-        colour = 'yellow'
-      } else {
-        colour = 'grey'
+      if (solutionArray[index] === letter) {
+        colour = "green"
+        solutionArray[index] = null
+      } else if (solutionArray.includes(letter)) {
+        colour = "yellow"
+        solutionArray[solutionArray.indexOf(letter)] = null
       }
+      return {key: letter, colour: colour}
+    })
 
-      output.push({
-        letter: guess[i],
-        colour: colour
-      })
-    }
-    return output;
+    return formattedGuess
   }
 
   // record a guess
@@ -49,10 +49,29 @@ const useWordle = (solution) => {
   const handleKeyUp = ({key, keyCode}) => {
     if(keyCode >= A_KEY_CODE && keyCode <= Z_KEY_CODE && currentGuess.length < 5) {
       setCurrentGuess(prevValue => prevValue + key)
-    } else if (keyCode === 8 && currentGuess.length != 0) {
+    } else if (keyCode === BACKSPACE_KEY_CODE) {
       setCurrentGuess(prevValue => prevValue.slice(0, -1))
-    } else if (keyCode === 13 && currentGuess.length === 5) {
-      addNewGuess()
+    } else if (keyCode === ENTER_KEY_CODE) {
+      // Only add guess if turn is less than 5
+      if (turn > 5) {
+        console.log("All guesses are used")
+        return
+      }
+
+      // Do not allow duplicate guesses
+      if(history.includes(currentGuess)) {
+        console.log("You already guessed this word")
+        return
+      }
+
+      // Word must be 5 letters long
+      if(currentGuess.length  != 5) {
+        console.log("Guesses must be 5 letters long")
+        return
+      }
+
+      const formattedGuess = formatGuess()
+      console.log(formattedGuess)
       setCurrentGuess("")
     }
   }
