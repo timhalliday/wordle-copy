@@ -7,6 +7,7 @@
   --title-color-dark: hsl(var(--hue), var(--sat), 0%);
   --text-color: rgb(60,60,60);
   --body-color: #f7f7f8;
+  --box-outline-color: #d5d4d4;
 }
 
 

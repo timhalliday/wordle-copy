@@ -8,13 +8,12 @@ const ENTER_KEY_CODE = 13
 const useWordle = (solution) => {
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState("")
-  const [guesses, setGuesses] = useState([]); // guesses as array
+  const [guesses, setGuesses] = useState([...Array(6)]); // guesses as array
   const [history, setHistory] = useState([]); // guesses as strings
   const [isCorrect, setIsCorrect] = useState(false);
 
   // format a guess into array of letter objects
   const formatGuess = () => {
-    console.log("Format guess - ", currentGuess)
     let solutionArray = [...solution]
     let formattedGuess = [...currentGuess].map((letter, index) => {
       let colour = "grey"
@@ -35,13 +34,21 @@ const useWordle = (solution) => {
   // record a guess
   // update isCorrect state
   // +1 to turn counter
-  const addNewGuess = () => {
-    setTurn(prevTurn => prevTurn + 1)
-    setHistory(prevHistory => [...prevHistory, currentGuess])
-
+  const addNewGuess = (formattedGuess) => {
     if(currentGuess === solution) {
       setIsCorrect(true)
     }
+
+    setGuesses((prevGuesses ) => {
+      let newGuesses = [...prevGuesses]
+      newGuesses[turn] = formattedGuess
+      return newGuesses
+    })
+
+    setHistory(prevHistory => [...prevHistory, currentGuess])
+    setTurn(prevTurn => prevTurn + 1)
+
+    setCurrentGuess("")
   }
 
   // handle keyup and track current guess
@@ -71,12 +78,11 @@ const useWordle = (solution) => {
       }
 
       const formattedGuess = formatGuess()
-      console.log(formattedGuess)
-      setCurrentGuess("")
+      addNewGuess(formattedGuess)
     }
   }
 
-  return {turn, currentGuess, guesses, isCorrect, handleKeyUp}
+  return {turn, currentGuess, guesses, history, isCorrect, handleKeyUp}
 }
 
 export default useWordle
