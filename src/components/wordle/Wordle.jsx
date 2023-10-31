@@ -20,7 +20,7 @@ export default function Wordle({solution}) {
   return (
     <section className="wordle">
       <div className="container wordle__container">
-        <div>Solution = {solution}</div>
+        <div style={{display: "none"}}>Solution = {solution}</div>
         <div>Current Guess: {currentGuess}</div>
         <Grid
           currentGuess={currentGuess}

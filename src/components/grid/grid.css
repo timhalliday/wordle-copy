@@ -17,11 +17,31 @@
   height: 60px;
   text-transform: capitalize;
   text-align: center;
-  font-size: 40px;
-  font-weight: lighter;
+  font-size: 30px;
+  font-weight: bold;
   color: var(--text-color);
+  line-height: 60px;
 }
 
 .grid__cell:not(:first-child) {
   margin-left: 10px;
+}
+
+.grid__row.past .grid__cell{
+  color: #FFF;
+}
+
+.grid__cell.green {
+  background-color: green;
+  border: 2px solid green;
+}
+
+.grid__cell.yellow {
+  background-color: #d1ab01;
+  border: 2px solid #d1ab01;
+}
+
+.grid__cell.grey {
+  background-color: rgb(100, 100, 100);
+  border: 2px solid rgb(100, 100, 100);
 }
