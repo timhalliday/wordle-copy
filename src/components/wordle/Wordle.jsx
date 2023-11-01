@@ -21,7 +21,6 @@ export default function Wordle({solution}) {
     <section className="wordle">
       <div className="container wordle__container">
         <div style={{display: "none"}}>Solution = {solution}</div>
-        <div>Current Guess: {currentGuess}</div>
         <Grid
           currentGuess={currentGuess}
           guesses={guesses}
