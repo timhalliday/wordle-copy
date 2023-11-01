@@ -21,7 +21,7 @@ export default function Row({guess, currentGuess}) {
           <div className="grid__cell filled" key={idx}>{letter}</div>
         ))}
         {[...Array(5-letters.length)].map((_, idx) => (
-          <div className="grid__cell filled" key={idx}></div>
+          <div className="grid__cell" key={idx}> </div>
         ))}
       </div>
     )
