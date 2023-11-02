@@ -1,0 +1,30 @@
+.keypad {
+  margin: 20px auto;
+  max-width: 550px;
+}
+
+.keypad__row > .key {
+  margin: 5px;
+  width: 45px;
+  height: 55px;
+  background: var(--light-grey-letter-bg);
+  display: inline-block;
+  border-radius: 6px;
+  line-height: 50px;
+  text-transform: capitalize;
+}
+
+.keypad__row > .key.green {
+  background-color: var(--green-letter-bg);
+  color: #FFF;
+}
+
+.keypad__row > .key.yellow {
+  background-color: var(--yellow-letter-bg);
+  color: #FFF;
+}
+
+.keypad__row > .key.grey {
+  background-color: var(--dark-grey-letter-bg);
+  color: #FFF;
+}

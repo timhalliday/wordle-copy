@@ -3,19 +3,26 @@ import React, {useEffect} from 'react'
 import useWordle from '../../hooks/useWordle'
 import Grid from "../../components/grid/Grid"
 import "./wordle.css"
+import Keypad from '../Keypad/Keypad'
 
 export default function Wordle({solution}) {
-  const { currentGuess, guesses, isCorrect, history, turn, handleKeyUp } = useWordle(solution)
+  const { currentGuess, guesses, isCorrect, history, turn, usedKeys, handleKeyUp } = useWordle(solution)
 
   useEffect(() => {
     window.addEventListener("keyup", handleKeyUp)
 
-    return () => window.removeEventListener("keyup", handleKeyUp)
-  }, [handleKeyUp])
+    if(isCorrect) {
+      console.log("Correct! You win.")
+      window.removeEventListener("keyup", handleKeyUp)
+    }
 
-  useEffect(() => {
-    console.log(history, guesses, turn, isCorrect)
-  }, [history, guesses, turn, isCorrect])
+    if(turn > 5) {
+      console.log("Out of turns! You lose.")
+      window.removeEventListener("keyup", handleKeyUp)
+    }
+
+    return () => window.removeEventListener("keyup", handleKeyUp)
+  }, [handleKeyUp, isCorrect, turn])
 
   return (
     <section className="wordle">
@@ -25,6 +32,9 @@ export default function Wordle({solution}) {
           currentGuess={currentGuess}
           guesses={guesses}
           turn={turn}
+        />
+        <Keypad
+          usedKeys={usedKeys}
         />
       </div>
     </section>

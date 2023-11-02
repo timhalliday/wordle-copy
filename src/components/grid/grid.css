@@ -32,20 +32,20 @@
 }
 
 .grid__cell.green {
-  --background-color: green;
-  --border: 2px solid green;
+  --background-color: var(--green-letter-bg);
+  --border: 2px solid var(--green-letter-bg);
   animation: flip 0.5s ease forwards;
 }
 
 .grid__cell.yellow {
-  --background-color: #d1ab01;
-  --border: 2px solid #d1ab01;
+  --background-color: var(--yellow-letter-bg);
+  --border: 2px solid var(--yellow-letter-bg);
   animation: flip 0.5s ease forwards;
 }
 
 .grid__cell.grey {
-  --background-color: rgb(100, 100, 100);
-  --border: 2px solid rgb(100, 100, 100);
+  --background-color: var(--dark-grey-letter-bg);
+  --border: 2px solid var(--dark-grey-letter-bg);
   animation: flip 0.5s ease forwards;
 }
 

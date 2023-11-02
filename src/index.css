@@ -83,6 +83,10 @@ html {
   --text-color: rgb(60,60,60);
   --body-color: #f7f7f8;
   --box-outline-color: #d5d4d4;
+  --green-letter-bg: #0a960a;
+  --yellow-letter-bg: #d1ab01;
+  --light-grey-letter-bg: #eee;
+  --dark-grey-letter-bg:  rgb(100, 100, 100);
 }
 
 
