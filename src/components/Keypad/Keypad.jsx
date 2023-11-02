@@ -16,7 +16,7 @@ export default function Keypad({usedKeys}) {
   return (
     <div className="keypad">
       {letters && letters.map((row, idx) => {
-        // Get this row letter divs
+         // Get this row letter divs
         const letters = row.map((letter) => {
           return <div className={usedKeys[letter.key] ? usedKeys[letter.key] + " key" : "key"} key={letter.key}>{letter.key}</div>
         })
