@@ -9,8 +9,8 @@ import Modal from '../modal/Modal'
 import "./wordle.css"
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Wordle({solution}) {
-  const { currentGuess, guesses, isCorrect, history, turn, usedKeys, handleKeyUp, handleKeyPress } = useWordle(solution)
+export default function Wordle({solution, fiveLetterWords}) {
+  const { currentGuess, guesses, isCorrect, history, turn, usedKeys, handleKeyUp, handleKeyPress } = useWordle(solution, fiveLetterWords)
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {

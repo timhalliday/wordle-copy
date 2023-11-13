@@ -5,22 +5,28 @@ import './App.css'
 import Header from './components/header/Header'
 import Wordle from "./components/wordle/Wordle"
 
+import data from '/data/db.json';
+
+
 function App() {
-  const [solution, setSolution] = useState(null);
+  const [solution, setSolution] = useState(null)
+  const [fiveLetterWords, setFiveLetterWords] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:3001/solutions")
-    .then(response => response.json())
-    .then(data => {
-      const randomWord = data[Math.floor(Math.random() * data.length)]// Select random word
-      setSolution(randomWord.word)
-      })
+    const solutions = data.solutions
+    const randomWord = solutions[Math.floor(Math.random() * solutions.length)].word// Select random word
+    setSolution(randomWord)
   }, [setSolution])
+
+  useEffect(() => {
+    setFiveLetterWords(data.fiveLetterWords)
+    console.log(fiveLetterWords)
+  }, [])
 
   return (
     <>
       <Header/>
-      {solution && <Wordle solution={solution}/>}
+      {solution && <Wordle solution={solution} fiveLetterWords={fiveLetterWords}/>}
     </>
   )
 }

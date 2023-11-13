@@ -6,13 +6,21 @@ const Z_KEY_CODE = 90;
 const BACKSPACE_KEY_CODE = 8;
 const ENTER_KEY_CODE = 13
 
-const useWordle = (solution) => {
+const useWordle = (solution, fiveLetterWords) => {
   const [turn, setTurn] = useState(0)
   const [currentGuess, setCurrentGuess] = useState("")
   const [guesses, setGuesses] = useState([...Array(6)]); // guesses as array
   const [history, setHistory] = useState([]); // guesses as strings
   const [isCorrect, setIsCorrect] = useState(false);
   const [usedKeys, setUsedKeys] = useState({}); // {'a': 'green', 'b' : 'grey'}
+
+  const checkGuessIsWord = () => {
+    if(fiveLetterWords.includes(currentGuess.toLowerCase())) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   // format a guess into array of letter objects
   const formatGuess = () => {
@@ -69,6 +77,11 @@ const useWordle = (solution) => {
   }
 
   const validateGuess = () => {
+    if (!checkGuessIsWord()){
+      toast("Not a valid word.")
+      return false
+    }
+
     if (turn > 5) {
       toast("Out of guesses!")
       return false

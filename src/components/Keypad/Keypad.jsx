@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from "react";
 
+import data from "/data/db.json"
+
 import "./keypad.css"
 
 export default function Keypad({usedKeys, handleKeyPress}) {
   const [letters, setLetters] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/letters")
-    .then(response => response.json())
-    .then(data => {
-      setLetters(data)
-      })
-  }, [setLetters])
+    setLetters(data.letters)
+  }, [])
 
   return (
     <div className="keypad">
