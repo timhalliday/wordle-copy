@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 
 import useWordle from '../../hooks/useWordle'
 import Grid from "../../components/grid/Grid"
-import "./wordle.css"
 import Keypad from '../Keypad/Keypad'
 import Modal from '../modal/Modal'
 
+import "./wordle.css"
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Wordle({solution}) {
-  const { currentGuess, guesses, isCorrect, history, turn, usedKeys, handleKeyUp } = useWordle(solution)
+  const { currentGuess, guesses, isCorrect, history, turn, usedKeys, handleKeyUp, handleKeyPress } = useWordle(solution)
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -29,6 +32,12 @@ export default function Wordle({solution}) {
 
   return (
     <section className="wordle">
+       <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar
+        theme="dark"
+      />
       <div className="container wordle__container">
         <div style={{display: "none"}}>Solution = {solution}</div>
         <Grid
@@ -38,6 +47,7 @@ export default function Wordle({solution}) {
         />
         <Keypad
           usedKeys={usedKeys}
+          handleKeyPress={handleKeyPress}
         />
         {showModal &&
           <Modal

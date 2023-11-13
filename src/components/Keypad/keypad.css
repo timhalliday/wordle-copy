@@ -5,13 +5,20 @@
 
 .keypad__row > .key {
   margin: 5px;
-  width: 45px;
+  min-width: 45px;
   height: 55px;
   background: var(--light-grey-letter-bg);
   display: inline-block;
   border-radius: 6px;
   line-height: 50px;
   text-transform: capitalize;
+  cursor: pointer;
+}
+
+.keypad__row:nth-child(3) > .key:first-child {
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .keypad__row > .key.green {

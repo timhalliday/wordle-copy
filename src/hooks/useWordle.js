@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { toast } from 'react-toastify';
 
 const A_KEY_CODE = 65;
 const Z_KEY_CODE = 90;
@@ -35,7 +36,13 @@ const useWordle = (solution) => {
   // record a guess
   // update isCorrect state
   // +1 to turn counter
-  const addNewGuess = (formattedGuess) => {
+  const addNewGuess = () => {
+    if (validateGuess() === false) {
+      return
+    }
+
+    const formattedGuess = formatGuess()
+
     if(currentGuess === solution) {
       setIsCorrect(true)
     }
@@ -61,6 +68,27 @@ const useWordle = (solution) => {
     setCurrentGuess("")
   }
 
+  const validateGuess = () => {
+    if (turn > 5) {
+      toast("Out of guesses!")
+      return false
+    }
+
+    // Do not allow duplicate guesses
+    if(history.includes(currentGuess)) {
+      toast("You already guessed this word.")
+      return false
+    }
+
+    // Word must be 5 letters long
+    if(currentGuess.length  != 5) {
+      toast("Guesses must be 5 letters long.")
+      return false
+    }
+
+    return true
+  }
+
   // handle keyup and track current guess
   // add the guess when user presses enter
   const handleKeyUp = ({key, keyCode}) => {
@@ -69,30 +97,27 @@ const useWordle = (solution) => {
     } else if (keyCode === BACKSPACE_KEY_CODE) {
       setCurrentGuess(prevValue => prevValue.slice(0, -1))
     } else if (keyCode === ENTER_KEY_CODE) {
-      // Only add guess if turn is less than 5
-      if (turn > 5) {
-        console.log("All guesses are used")
-        return
-      }
-
-      // Do not allow duplicate guesses
-      if(history.includes(currentGuess)) {
-        console.log("You already guessed this word")
-        return
-      }
-
-      // Word must be 5 letters long
-      if(currentGuess.length  != 5) {
-        console.log("Guesses must be 5 letters long")
-        return
-      }
-
-      const formattedGuess = formatGuess()
-      addNewGuess(formattedGuess)
+      addNewGuess()
     }
   }
 
-  return {turn, currentGuess, guesses, history, isCorrect, usedKeys, handleKeyUp}
+  const handleKeyPress = ({target}) => {
+    const letter = target.dataset.letter;
+
+    if(letter === "ENTER") {
+      addNewGuess()
+      return
+    } else if (letter === "⌫") {
+      setCurrentGuess(prevValue => prevValue.slice(0, -1))
+      return
+    }
+
+    if(currentGuess.length  < 5) {
+      setCurrentGuess(prevGuess => prevGuess + letter);
+    }
+  }
+
+  return {turn, currentGuess, guesses, history, isCorrect, usedKeys, handleKeyUp, handleKeyPress}
 }
 
 export default useWordle
